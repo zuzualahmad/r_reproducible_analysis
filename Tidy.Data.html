@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zeinab Al Ahmad">
+
+<title>Tidy Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Tidy.Data_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Tidy.Data_files/libs/quarto-html/quarto.js"></script>
+<script src="Tidy.Data_files/libs/quarto-html/popper.min.js"></script>
+<script src="Tidy.Data_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Tidy.Data_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Tidy.Data_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Tidy.Data_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Tidy.Data_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Tidy.Data_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Tidy.Data_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tidy Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zeinab Al Ahmad </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-data">Tidy Data</h2>
+<p>Tidy data is a concept introduced by Hadley Wickham to make data analysis more structured, efficient, and straightforward. It is based on the principle of organizing data to facilitate analysis. In tidy data:</p>
+<ul>
+<li><strong>Each variable forms a column</strong>, ensuring that every column represents one and only one variable.</li>
+<li><strong>Each observation forms a row</strong>, meaning that every row in the dataset corresponds to a distinct observation or record.</li>
+<li><strong>Each type of observational unit forms a table</strong>, which means that data about different entities are stored in separate tables.</li>
+</ul>
+<p>This structure makes it easier to manipulate, visualize, and model data with tools that are designed to work with tidy data. Tidy data principles align with many data analysis tasks, allowing analysts to focus more on the analysis itself rather than on preparing data for analysis.</p>
+</section>
+<section id="subset-using-filter" class="level2">
+<h2 class="anchored" data-anchor-id="subset-using-filter">Subset Using Filter</h2>
+<p>This process described involves subsetting data in R to focus on observations from a specific country, Australia, using the <code>dplyr</code> package from the tidyverse collection.</p>
+<ul>
+<li><strong>Data Selection</strong>: The subset is created by selecting rows from the <code>gapminder</code> dataset that correspond to Australia.</li>
+<li><strong>Pipe Operator (<code>%&gt;%</code>)</strong>: This operator is used to pass the dataset through successive functions. It facilitates a clear and readable syntax by allowing the result of one operation to be input directly into the next.</li>
+<li><strong>Filtering</strong>: The <code>filter</code> function is employed to narrow down the dataset to just the rows related to Australia.</li>
+<li><strong>Displaying Results</strong>: The <code>head</code> function is used after filtering to display the top rows of the subset. By default, <code>head</code> shows the first 6 rows unless specified otherwise; in this example, it’s set to display the top 12 rows.</li>
+<li><strong>Package Usage</strong>: The operations utilize functions from the <code>dplyr</code> package, part of the larger <code>tidyverse</code> suite of tools designed for data science in R. When <code>dplyr</code> or <code>tidyverse</code> is loaded, there’s no need to prefix commands from these packages with <code>dplyr::</code>.</li>
+</ul>
+<p>This procedure exemplifies the efficient and readable approach to data manipulation offered by the <code>tidyverse</code>’s philosophy, focusing on clarity and simplicity in data analysis workflows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dplyr package</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming gapminder is already loaded or part of the tidyverse</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># If not, you might also need to load it using library(gapminder)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"Australia"</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 6
+   country   continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Australia Oceania    1952    69.1  8691212    10040.
+ 2 Australia Oceania    1957    70.3  9712569    10950.
+ 3 Australia Oceania    1962    70.9 10794968    12217.
+ 4 Australia Oceania    1967    71.1 11872264    14526.
+ 5 Australia Oceania    1972    71.9 13177000    16789.
+ 6 Australia Oceania    1977    73.5 14074100    18334.
+ 7 Australia Oceania    1982    74.7 15184200    19477.
+ 8 Australia Oceania    1987    76.3 16257249    21889.
+ 9 Australia Oceania    1992    77.6 17481977    23425.
+10 Australia Oceania    1997    78.8 18565243    26998.
+11 Australia Oceania    2002    80.4 19546792    30688.
+12 Australia Oceania    2007    81.2 20434176    34435.</code></pre>
+</div>
+</div>
+<section id="subset-using-multiple-conditions" class="level3">
+<h3 class="anchored" data-anchor-id="subset-using-multiple-conditions">Subset using multiple conditions</h3>
+<p>The process described involves filtering a dataset to select observations that meet specific criteria, and then displaying a subset of the resulting rows. Using the <code>gapminder</code> dataframe as an example, the goal is to isolate and display observations where two conditions are met:</p>
+<ol type="1">
+<li><strong>Continent is “Oceania”</strong>: This condition filters the dataset to include only rows where the continent column matches “Oceania”.</li>
+<li><strong>Year is 1997</strong>: This condition further filters the dataset to include rows where the year column equals 1997.</li>
+</ol>
+<p>The logical operator <code>&amp;</code> is used to combine these conditions, ensuring that both must be true for a row to be included in the filtered dataset. The <code>filter</code> function from the <code>dplyr</code> package is used to apply these criteria, and the <code>%&gt;%</code> operator (pipe) directs the filtered dataset to the <code>head()</code> function. The <code>head()</code> function is then used to display the first few rows of the dataset that meet these conditions, providing a quick snapshot of the data for “Oceania” in the year 1997. This method is a powerful way to examine specific subsets of data within a larger dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(continent<span class="sc">==</span><span class="st">"Oceania"</span> <span class="sc">&amp;</span> year<span class="sc">==</span><span class="dv">1997</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 6
+  country     continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1 Australia   Oceania    1997    78.8 18565243    26998.
+2 New Zealand Oceania    1997    77.6  3676187    21050.</code></pre>
+</div>
+</div>
+<p>The next example uses an “or” condition to specify the desired rows in the first filter expression - the next filter permits only observations from 1997.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(continent<span class="sc">==</span><span class="st">"Oceania"</span> <span class="sc">|</span> continent <span class="sc">==</span><span class="st">"Americas"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">1997</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  country   continent  year lifeExp       pop gdpPercap
+  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+1 Argentina Americas   1997    73.3  36203463    10967.
+2 Australia Oceania    1997    78.8  18565243    26998.
+3 Bolivia   Americas   1997    62.0   7693188     3326.
+4 Brazil    Americas   1997    69.4 168546719     7958.
+5 Canada    Americas   1997    78.6  30305843    28955.
+6 Chile     Americas   1997    75.8  14599929    10118.</code></pre>
+</div>
+</div>
+<p>The next example selects observations/rows from a list of countries and also restricts year to 1997.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Australia"</span>, <span class="st">"New Zealand"</span>,<span class="st">"Argentina"</span>) <span class="sc">&amp;</span> year<span class="sc">==</span><span class="dv">1997</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 6
+  country     continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1 Argentina   Americas   1997    73.3 36203463    10967.
+2 Australia   Oceania    1997    78.8 18565243    26998.
+3 New Zealand Oceania    1997    77.6  3676187    21050.</code></pre>
+</div>
+</div>
+<ul>
+<li>The process involves filtering observations from a dataset by excluding a specific continent (Oceania) and selecting a specific year (1997).</li>
+<li>The “!=” operator is used to exclude observations where the continent is Oceania, meaning any row with the continent not equal to Oceania will be included.</li>
+<li>The “==” operator checks for equality, so <code>year == 1997</code> ensures only rows from the year 1997 are selected.</li>
+<li>Both conditions (continent not being Oceania and year being 1997) must be met for a row to be included in the filtered dataset, achieved by combining the conditions with the logical “AND” operator (<code>&amp;</code>).</li>
+<li>The <code>filter</code> function from the <code>dplyr</code> package applies these conditions, and the result is then piped (<code>%&gt;%</code>) to the <code>head</code> function to display the first few rows that meet these criteria.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent<span class="sc">!=</span><span class="st">"Oceania"</span> <span class="sc">&amp;</span> year<span class="sc">==</span><span class="dv">1997</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  country     continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1 Afghanistan Asia       1997    41.8 22227415      635.
+2 Albania     Europe     1997    73.0  3428038     3193.
+3 Algeria     Africa     1997    69.2 29072015     4797.
+4 Angola      Africa     1997    41.0  9875024     2277.
+5 Argentina   Americas   1997    73.3 36203463    10967.
+6 Austria     Europe     1997    77.5  8069876    29096.</code></pre>
+</div>
+</div>
+<p>Notes: - The <code>filter</code> function is used to include or exclude rows in a dataframe based on specified logical conditions. - Rows or observations are accepted (included) if they meet the conditions specified within the <code>filter</code> function. - Rows are rejected (excluded) if they do not satisfy the logical conditions provided. - These conditions can check for equality (<code>==</code>), inequality (<code>!=</code>), greater than (<code>&gt;</code>), less than (<code>&lt;</code>), and other logical comparisons. - Multiple conditions can be combined using logical operators like “AND” (<code>&amp;</code>) and “OR” (<code>|</code>), allowing for complex filtering criteria. - The <code>filter</code> function is part of the <code>dplyr</code> package, which is designed for data manipulation tasks within the tidyverse ecosystem.</p>
+</section>
+</section>
+<section id="saving-as-a-new-dataframe" class="level2">
+<h2 class="anchored" data-anchor-id="saving-as-a-new-dataframe">Saving as a new dataframe</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gap97 <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent<span class="sc">!=</span><span class="st">"Oceania"</span> <span class="sc">&amp;</span> year<span class="sc">==</span><span class="dv">1997</span>) </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(gap97)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 140
+Columns: 6
+$ country   &lt;fct&gt; "Afghanistan", "Albania", "Algeria", "Angola", "Argentina", …
+$ continent &lt;fct&gt; Asia, Europe, Africa, Africa, Americas, Europe, Asia, Asia, …
+$ year      &lt;int&gt; 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, 1997, …
+$ lifeExp   &lt;dbl&gt; 41.763, 72.950, 69.152, 40.963, 73.275, 77.510, 73.925, 59.4…
+$ pop       &lt;int&gt; 22227415, 3428038, 29072015, 9875024, 36203463, 8069876, 598…
+$ gdpPercap &lt;dbl&gt; 635.3414, 3193.0546, 4797.2951, 2277.1409, 10967.2820, 29095…</code></pre>
+</div>
+</div>
+<section id="subset-using-top_n" class="level3">
+<h3 class="anchored" data-anchor-id="subset-using-top_n">Subset using top_n</h3>
+<p>Making a dataset based on the ten countries in 1997 with highest gdp.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">1997</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">wt =</span> gdpPercap) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+   country       continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;         &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Austria       Europe     1997    77.5   8069876    29096.
+ 2 Canada        Americas   1997    78.6  30305843    28955.
+ 3 Denmark       Europe     1997    76.1   5283663    29804.
+ 4 Japan         Asia       1997    80.7 125956499    28817.
+ 5 Kuwait        Asia       1997    76.2   1765345    40301.
+ 6 Netherlands   Europe     1997    78.0  15604464    30246.
+ 7 Norway        Europe     1997    78.3   4405672    41283.
+ 8 Singapore     Asia       1997    77.2   3802309    33519.
+ 9 Switzerland   Europe     1997    79.4   7193761    32135.
+10 United States Americas   1997    76.8 272911760    35767.</code></pre>
+</div>
+</div>
+</section>
+<section id="subset-using-select" class="level3">
+<h3 class="anchored" data-anchor-id="subset-using-select">Subset using select</h3>
+<ul>
+<li>The <code>filter</code> function is used to control which rows (observations) are included in a dataframe based on specific conditions.</li>
+<li>When working with datasets that contain many variables, there’s often a need to focus on a subset of those variables.</li>
+<li>The <code>select</code> function is utilized to choose specific variables (columns) from a dataset, effectively creating a subset of the data that includes only the desired variables.</li>
+<li>In addition to selecting variables, the <code>select</code> function can also be used to rename variables within the same operation, streamlining data manipulation tasks.</li>
+<li>Both <code>filter</code> and <code>select</code> are part of the <code>dplyr</code> package, facilitating efficient data manipulation and analysis in R.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the next command selects three variables and renames two of them:</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, <span class="at">Year=</span>year,<span class="at">LifeExp=</span>lifeExp) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country      Year LifeExp
+  &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;
+1 Afghanistan  1952    28.8
+2 Afghanistan  1957    30.3
+3 Afghanistan  1962    32.0
+4 Afghanistan  1967    34.0
+5 Afghanistan  1972    36.1
+6 Afghanistan  1977    38.4</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to change the order of display, puts year first in the list of variables</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year,<span class="fu">everything</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+   year country     continent lifeExp      pop gdpPercap
+  &lt;int&gt; &lt;fct&gt;       &lt;fct&gt;       &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1  1952 Afghanistan Asia         28.8  8425333      779.
+2  1957 Afghanistan Asia         30.3  9240934      821.
+3  1962 Afghanistan Asia         32.0 10267083      853.
+4  1967 Afghanistan Asia         34.0 11537966      836.
+5  1972 Afghanistan Asia         36.1 13079460      740.
+6  1977 Afghanistan Asia         38.4 14880372      786.</code></pre>
+</div>
+</div>
+<ul>
+<li>The <code>profiling_num</code> command from the <code>funModeling</code> package generates detailed output in the form of a dataframe, including various summary statistics for numerical variables.</li>
+<li>To streamline the output and focus on relevant information, it’s possible to exclude certain columns from the dataframe.</li>
+<li>Columns can be excluded by specifying their names with a minus <code>-</code> sign in front of the list of column names when using the <code>select</code> function from the <code>dplyr</code> package.</li>
+<li>By removing unwanted columns, the dataframe is tailored to include only the desired summary statistics or information.</li>
+<li>After modifying the dataframe to exclude specific columns, the result can be piped (<code>%&gt;%</code>) into the <code>kable</code> command from the <code>knitr</code> package. This creates a more visually appealing table format for the remaining data, enhancing readability and presentation in reports or R Markdown documents.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Let's observe the contents of profiling_num:</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#funModeling::profiling_num(gapminder) %&gt;% </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a> <span class="co"># dplyr::glimpse()</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Rows: 4</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Columns: 16</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="do">## $ variable       &lt;chr&gt; "year", "lifeExp", "pop", "gdpPercap"</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="do">## $ mean           &lt;dbl&gt; 1.979500e+03, 5.947444e+01, 2.960121e+07, 7.215327e+03</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="do">## $ std_dev        &lt;dbl&gt; 1.726533e+01, 1.291711e+01, 1.061579e+08, 9.857455e+03</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="do">## $ variation_coef &lt;dbl&gt; 0.008722066, 0.217187544, 3.586268548, 1.366182632</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="do">## $ p_01           &lt;dbl&gt; 1952.0000, 33.4926, 154117.9200, 369.2201</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="do">## $ p_05           &lt;dbl&gt; 1952.0000, 38.4924, 475458.9000, 547.9964</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="do">## $ p_25           &lt;dbl&gt; 1965.750, 48.198, 2793664.000, 1202.060</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="do">## $ p_50           &lt;dbl&gt; 1979.5000, 60.7125, 7023595.5000, 3531.8470</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="do">## $ p_75           &lt;dbl&gt; 1.993250e+03, 7.084550e+01, 1.958522e+07, 9.325462e+03</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="do">## $ p_95           &lt;dbl&gt; 2007.000, 77.437, 89822054.500, 26608.333</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="do">## $ p_99           &lt;dbl&gt; 2.007000e+03, 8.023892e+01, 6.319900e+08, 3.678357e+04</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="do">## $ skewness       &lt;dbl&gt; 0.0000000, -0.2524798, 8.3328742, 3.8468819</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="do">## $ kurtosis       &lt;dbl&gt; 1.783217, 1.873099, 80.716151, 30.431702</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="do">## $ iqr            &lt;dbl&gt; 2.750000e+01, 2.264750e+01, 1.679156e+07, 8.123402e+03</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="do">## $ range_98       &lt;chr&gt; "[1952, 2007]", "[33.4926, 80.23892]", "[154117.92, 63199000…</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="do">## $ range_80       &lt;chr&gt; "[1957, 2002]", "[41.5108, 75.097]", "[946367.1, 54801369.5]…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now remove unwanted columns from summary display</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#funModeling::profiling_num(gapminder) %&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a> <span class="co"># select(-c("variation_coef","skewness","kurtosis","range_98","range_80","p_01","p_99")) %&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a> <span class="co"># knitr::kable()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="order-using-arrange" class="level2">
+<h2 class="anchored" data-anchor-id="order-using-arrange">Order using arrange</h2>
+<ul>
+<li><strong>Filtering by Year</strong>: The <code>filter(year == 1997)</code> command uses a logical check to retain only the rows in the dataframe where the year is exactly 1997.</li>
+<li><strong>Sorting Values</strong>: The <code>arrange()</code> function, in combination with the <code>desc()</code> function, is used to sort the data by a specified variable in descending order, from the largest values to the smallest. Without <code>desc()</code>, the default sorting order is ascending.</li>
+<li><strong>Descending Order</strong>: Incorporating <code>desc()</code> within the <code>arrange()</code> function specifies that the values should be organized from the highest (largest) to the lowest (smallest), focusing on variables like life expectancy in the given examples.</li>
+<li><strong>Analysis Pipeline</strong>: These operations are part of a data manipulation and analysis pipeline, typically constructed using the <code>%&gt;%</code> pipe operator to pass the result of one function to the next, facilitating clear and logical data analysis workflows.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This command will show the countries with highest life expectancy because </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the data are arranged in descending order of life expectancy (larger to smaller)</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">1997</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, continent, lifeExp) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExp)) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country          continent lifeExp
+  &lt;fct&gt;            &lt;fct&gt;       &lt;dbl&gt;
+1 Japan            Asia         80.7
+2 Hong Kong, China Asia         80  
+3 Sweden           Europe       79.4
+4 Switzerland      Europe       79.4
+5 Iceland          Europe       79.0
+6 Australia        Oceania      78.8</code></pre>
+</div>
+</div>
+</section>
+<section id="grouped-filter" class="level2">
+<h2 class="anchored" data-anchor-id="grouped-filter">Grouped Filter</h2>
+</section>
+<section id="new-variables-using-mutate" class="level2">
+<h2 class="anchored" data-anchor-id="new-variables-using-mutate">New Variables Using Mutate</h2>
+</section>
+<section id="simple-counting-using-tally-and-count" class="level2">
+<h2 class="anchored" data-anchor-id="simple-counting-using-tally-and-count">Simple Counting Using tally() and count()</h2>
+</section>
+<section id="missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="missing-values">Missing Values</h2>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

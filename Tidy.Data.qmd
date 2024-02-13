@@ -1,0 +1,193 @@
+---
+title: "Tidy Data"
+format: html
+editor: source
+author: Zeinab Al Ahmad
+---
+
+## Tidy Data
+
+Tidy data is a concept introduced by Hadley Wickham to make data analysis more structured, efficient, and straightforward. It is based on the principle of organizing data to facilitate analysis. In tidy data:
+
+-   **Each variable forms a column**, ensuring that every column represents one and only one variable.
+-   **Each observation forms a row**, meaning that every row in the dataset corresponds to a distinct observation or record.
+-   **Each type of observational unit forms a table**, which means that data about different entities are stored in separate tables.
+
+This structure makes it easier to manipulate, visualize, and model data with tools that are designed to work with tidy data. Tidy data principles align with many data analysis tasks, allowing analysts to focus more on the analysis itself rather than on preparing data for analysis.
+
+## Subset Using Filter
+
+This process described involves subsetting data in R to focus on observations from a specific country, Australia, using the `dplyr` package from the tidyverse collection.
+
+-   **Data Selection**: The subset is created by selecting rows from the `gapminder` dataset that correspond to Australia.
+-   **Pipe Operator (`%>%`)**: This operator is used to pass the dataset through successive functions. It facilitates a clear and readable syntax by allowing the result of one operation to be input directly into the next.
+-   **Filtering**: The `filter` function is employed to narrow down the dataset to just the rows related to Australia.
+-   **Displaying Results**: The `head` function is used after filtering to display the top rows of the subset. By default, `head` shows the first 6 rows unless specified otherwise; in this example, it's set to display the top 12 rows.
+-   **Package Usage**: The operations utilize functions from the `dplyr` package, part of the larger `tidyverse` suite of tools designed for data science in R. When `dplyr` or `tidyverse` is loaded, there's no need to prefix commands from these packages with `dplyr::`.
+
+This procedure exemplifies the efficient and readable approach to data manipulation offered by the `tidyverse`'s philosophy, focusing on clarity and simplicity in data analysis workflows.
+
+```{r}
+# Load the dplyr package
+library(dplyr)
+library(gapminder)
+
+
+# Assuming gapminder is already loaded or part of the tidyverse
+# If not, you might also need to load it using library(gapminder)
+
+# Your code
+gapminder %>% filter(country == "Australia") %>% head(n = 12)
+
+```
+
+### Subset using multiple conditions
+
+The process described involves filtering a dataset to select observations that meet specific criteria, and then displaying a subset of the resulting rows. Using the `gapminder` dataframe as an example, the goal is to isolate and display observations where two conditions are met:
+
+1.  **Continent is "Oceania"**: This condition filters the dataset to include only rows where the continent column matches "Oceania".
+2.  **Year is 1997**: This condition further filters the dataset to include rows where the year column equals 1997.
+
+The logical operator `&` is used to combine these conditions, ensuring that both must be true for a row to be included in the filtered dataset. The `filter` function from the `dplyr` package is used to apply these criteria, and the `%>%` operator (pipe) directs the filtered dataset to the `head()` function. The `head()` function is then used to display the first few rows of the dataset that meet these conditions, providing a quick snapshot of the data for "Oceania" in the year 1997. This method is a powerful way to examine specific subsets of data within a larger dataset.
+
+```{r}
+gapminder %>% 
+  dplyr::filter(continent=="Oceania" & year==1997) %>% 
+  head()
+```
+
+The next example uses an “or” condition to specify the desired rows in the first filter expression - the next filter permits only observations from 1997.
+
+```{r}
+gapminder %>% 
+  dplyr::filter(continent=="Oceania" | continent =="Americas") %>%
+  dplyr::filter(year==1997) %>% 
+  head()
+```
+
+The next example selects observations/rows from a list of countries and also restricts year to 1997.
+
+```{r}
+gapminder %>% 
+  filter(country %in% c("Australia", "New Zealand","Argentina") & year==1997) %>% 
+  head()
+
+```
+
+-   The process involves filtering observations from a dataset by excluding a specific continent (Oceania) and selecting a specific year (1997).
+-   The "!=" operator is used to exclude observations where the continent is Oceania, meaning any row with the continent not equal to Oceania will be included.
+-   The "==" operator checks for equality, so `year == 1997` ensures only rows from the year 1997 are selected.
+-   Both conditions (continent not being Oceania and year being 1997) must be met for a row to be included in the filtered dataset, achieved by combining the conditions with the logical "AND" operator (`&`).
+-   The `filter` function from the `dplyr` package applies these conditions, and the result is then piped (`%>%`) to the `head` function to display the first few rows that meet these criteria.
+
+```{r}
+gapminder %>% 
+  filter(continent!="Oceania" & year==1997) %>% 
+  head()
+```
+
+Notes: - The `filter` function is used to include or exclude rows in a dataframe based on specified logical conditions. - Rows or observations are accepted (included) if they meet the conditions specified within the `filter` function. - Rows are rejected (excluded) if they do not satisfy the logical conditions provided. - These conditions can check for equality (`==`), inequality (`!=`), greater than (`>`), less than (`<`), and other logical comparisons. - Multiple conditions can be combined using logical operators like "AND" (`&`) and "OR" (`|`), allowing for complex filtering criteria. - The `filter` function is part of the `dplyr` package, which is designed for data manipulation tasks within the tidyverse ecosystem.
+
+## Saving as a new dataframe
+
+```{r}
+gap97 <- gapminder %>% 
+  filter(continent!="Oceania" & year==1997) 
+#
+dplyr::glimpse(gap97)
+```
+
+### Subset using top_n
+
+Making a dataset based on the ten countries in 1997 with highest gdp.
+
+```{r}
+gapminder %>% filter(year==1997) %>%
+  top_n(n = 10, wt = gdpPercap) %>%
+  head(n=10)
+```
+
+### Subset using select
+
+-   The `filter` function is used to control which rows (observations) are included in a dataframe based on specific conditions.
+-   When working with datasets that contain many variables, there's often a need to focus on a subset of those variables.
+-   The `select` function is utilized to choose specific variables (columns) from a dataset, effectively creating a subset of the data that includes only the desired variables.
+-   In addition to selecting variables, the `select` function can also be used to rename variables within the same operation, streamlining data manipulation tasks.
+-   Both `filter` and `select` are part of the `dplyr` package, facilitating efficient data manipulation and analysis in R.
+
+```{r}
+# the next command selects three variables and renames two of them:
+gapminder %>% 
+  dplyr::select(country, Year=year,LifeExp=lifeExp) %>% 
+  head()
+```
+
+```{r}
+# to change the order of display, puts year first in the list of variables
+gapminder %>% 
+  select(year,everything()) %>% 
+  head()
+```
+
+-   The `profiling_num` command from the `funModeling` package generates detailed output in the form of a dataframe, including various summary statistics for numerical variables.
+-   To streamline the output and focus on relevant information, it's possible to exclude certain columns from the dataframe.
+-   Columns can be excluded by specifying their names with a minus `-` sign in front of the list of column names when using the `select` function from the `dplyr` package.
+-   By removing unwanted columns, the dataframe is tailored to include only the desired summary statistics or information.
+-   After modifying the dataframe to exclude specific columns, the result can be piped (`%>%`) into the `kable` command from the `knitr` package. This creates a more visually appealing table format for the remaining data, enhancing readability and presentation in reports or R Markdown documents.
+
+```{r}
+### Let's observe the contents of profiling_num:
+#funModeling::profiling_num(gapminder) %>% 
+ # dplyr::glimpse()
+## Rows: 4
+## Columns: 16
+## $ variable       <chr> "year", "lifeExp", "pop", "gdpPercap"
+## $ mean           <dbl> 1.979500e+03, 5.947444e+01, 2.960121e+07, 7.215327e+03
+## $ std_dev        <dbl> 1.726533e+01, 1.291711e+01, 1.061579e+08, 9.857455e+03
+## $ variation_coef <dbl> 0.008722066, 0.217187544, 3.586268548, 1.366182632
+## $ p_01           <dbl> 1952.0000, 33.4926, 154117.9200, 369.2201
+## $ p_05           <dbl> 1952.0000, 38.4924, 475458.9000, 547.9964
+## $ p_25           <dbl> 1965.750, 48.198, 2793664.000, 1202.060
+## $ p_50           <dbl> 1979.5000, 60.7125, 7023595.5000, 3531.8470
+## $ p_75           <dbl> 1.993250e+03, 7.084550e+01, 1.958522e+07, 9.325462e+03
+## $ p_95           <dbl> 2007.000, 77.437, 89822054.500, 26608.333
+## $ p_99           <dbl> 2.007000e+03, 8.023892e+01, 6.319900e+08, 3.678357e+04
+## $ skewness       <dbl> 0.0000000, -0.2524798, 8.3328742, 3.8468819
+## $ kurtosis       <dbl> 1.783217, 1.873099, 80.716151, 30.431702
+## $ iqr            <dbl> 2.750000e+01, 2.264750e+01, 1.679156e+07, 8.123402e+03
+## $ range_98       <chr> "[1952, 2007]", "[33.4926, 80.23892]", "[154117.92, 63199000…
+## $ range_80       <chr> "[1957, 2002]", "[41.5108, 75.097]", "[946367.1, 54801369.5]…
+
+```
+
+```{r}
+# now remove unwanted columns from summary display
+#funModeling::profiling_num(gapminder) %>%
+ # select(-c("variation_coef","skewness","kurtosis","range_98","range_80","p_01","p_99")) %>%
+ # knitr::kable()
+```
+
+## Order using arrange
+
+-   **Filtering by Year**: The `filter(year == 1997)` command uses a logical check to retain only the rows in the dataframe where the year is exactly 1997.
+-   **Sorting Values**: The `arrange()` function, in combination with the `desc()` function, is used to sort the data by a specified variable in descending order, from the largest values to the smallest. Without `desc()`, the default sorting order is ascending.
+-   **Descending Order**: Incorporating `desc()` within the `arrange()` function specifies that the values should be organized from the highest (largest) to the lowest (smallest), focusing on variables like life expectancy in the given examples.
+-   **Analysis Pipeline**: These operations are part of a data manipulation and analysis pipeline, typically constructed using the `%>%` pipe operator to pass the result of one function to the next, facilitating clear and logical data analysis workflows.
+
+```{r}
+# This command will show the countries with highest life expectancy because 
+# the data are arranged in descending order of life expectancy (larger to smaller)
+gapminder %>% 
+  dplyr::filter(year==1997) %>%   
+  dplyr::select(country, continent, lifeExp) %>% 
+  dplyr::arrange(desc(lifeExp)) %>% 
+  head()
+```
+
+## Grouped Filter
+
+## New Variables Using Mutate
+
+## Simple Counting Using tally() and count()
+
+## Missing Values
