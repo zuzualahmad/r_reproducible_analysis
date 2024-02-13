@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zee alahmad">
+
+<title>Tidy Data Book Summary</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Tidy Data Book Summary_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Tidy Data Book Summary_files/libs/quarto-html/quarto.js"></script>
+<script src="Tidy Data Book Summary_files/libs/quarto-html/popper.min.js"></script>
+<script src="Tidy Data Book Summary_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Tidy Data Book Summary_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Tidy Data Book Summary_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Tidy Data Book Summary_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Tidy Data Book Summary_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Tidy Data Book Summary_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Tidy Data Book Summary_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tidy Data Book Summary</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zee alahmad </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
+<p>The introduction emphasizes that a significant portion of data analysis is dedicated to data preparation, highlighting its repetitive necessity throughout the analytical process. It introduces “data tidying” as a crucial aspect of data preparation, focusing on structuring datasets to ease analysis. The principles of tidy data are outlined as a standard to simplify initial data cleaning and facilitate the development of interoperable analysis tools. This approach is rooted in experiences with real-world datasets, leading to the development of tools like <code>reshape</code> and <code>ggplot2</code>. The paper aims to provide a comprehensive framework for data organization, enhancing analysis efficiency by focusing on tidy data and tools.</p>
+</section>
+<section id="defining-tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="defining-tidy-data">2. Defining tidy data</h2>
+<p>Tidy datasets standardize the relationship between a dataset’s structure and its meaning, making analysis more straightforward. This section introduces vocabulary for discussing dataset structure and semantics, leading to a definition of tidy data that emphasizes uniformity in dataset organization against the backdrop of the unique messiness of non-tidy datasets. This approach aims to simplify data cleaning and analysis by providing a clear framework for data organization.</p>
+</section>
+<section id="data-structure" class="level2">
+<h2 class="anchored" data-anchor-id="data-structure">2.1 Data Structure</h2>
+<p>Statistical datasets, typically rectangular tables of rows and columns, vary in structure but convey the same underlying data. The example contrasts two tables: one in a common format and another with transposed rows and columns, illustrating that layout alone doesn’t capture data’s semantics. This highlights the necessity for a vocabulary that encompasses both the physical layout and the meaning of data, underscoring the challenge in defining and recognizing tidy data based solely on its appearance without considering its underlying semantics.</p>
+</section>
+<section id="data-semantics" class="level2">
+<h2 class="anchored" data-anchor-id="data-semantics">2.2 Data Semantics</h2>
+<p>Values can be numbers or strings, organized by variables (attributes measured across units) and observations (all attributes measured on a single unit). The reorganized table illustrates this concept with variables (person, treatment, result) and observations indicating a completely crossed experimental design. It discusses the challenges in defining variables and observations, influenced by context and analysis goals, and introduces the idea of multiple observational levels within a dataset, such as in medical trials.</p>
+</section>
+<section id="tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-data">2.3 Tidy Data</h2>
+<p>Tidy data aligns dataset structure with its meaning, enhancing analysis and computation by organizing variables into columns, observations into rows, and types of observational units into tables. This approach simplifies data extraction, reduces errors, and supports vectorized operations, especially in languages like R. Tidy data principles, reflecting Codd’s 3rd normal form in a statistical context, ensure that each dataset element has a clear, standardized representation, facilitating both preliminary and complex analytical tasks.</p>
+</section>
+<section id="tidying-messy-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="tidying-messy-datasets">3. Tidying messy datasets</h2>
+<p>Real-world datasets often deviate significantly from tidy data principles, presenting challenges such as values used as column headers, multiple variables combined in one column, and inconsistent storage of variables and observational units. Despite the diversity of messiness, most issues can be resolved using techniques like melting, string splitting, and casting. This approach simplifies data analysis by converting datasets into a tidy format, where each variable is a column, each observation is a row, and each type of observational unit is in its own table.</p>
+</section>
+<section id="the-section-emphasizes-that-real-datasets-often-deviate-from-tidy-data-principles-presenting-challenges-such-as-inappropriate-column-headers-merged-variables-and-mixed-observational-units.-despite-the-diversity-of-issues-most-can-be-addressed-with-techniques-like-melting-string-splitting-and-casting.-these-methods-illustrated-with-real-examples-demonstrate-the-process-of-transforming-messy-datasets-into-tidy-formats-streamlining-data-analysis.-this-approach-underscores-the-adaptability-required-in-data-preparation-and-the-utility-of-a-few-key-tools-in-tackling-common-data-organization-problems." class="level2">
+<h2 class="anchored" data-anchor-id="the-section-emphasizes-that-real-datasets-often-deviate-from-tidy-data-principles-presenting-challenges-such-as-inappropriate-column-headers-merged-variables-and-mixed-observational-units.-despite-the-diversity-of-issues-most-can-be-addressed-with-techniques-like-melting-string-splitting-and-casting.-these-methods-illustrated-with-real-examples-demonstrate-the-process-of-transforming-messy-datasets-into-tidy-formats-streamlining-data-analysis.-this-approach-underscores-the-adaptability-required-in-data-preparation-and-the-utility-of-a-few-key-tools-in-tackling-common-data-organization-problems.">3.1 The section emphasizes that real datasets often deviate from tidy data principles, presenting challenges such as inappropriate column headers, merged variables, and mixed observational units. Despite the diversity of issues, most can be addressed with techniques like melting, string splitting, and casting. These methods, illustrated with real examples, demonstrate the process of transforming messy datasets into tidy formats, streamlining data analysis. This approach underscores the adaptability required in data preparation and the utility of a few key tools in tackling common data organization problems.</h2>
+</section>
+<section id="multiple-variables-stored-in-one-column" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-variables-stored-in-one-column">3.2 Multiple variables stored in one column</h2>
+<p>After melting, variable names in datasets often become amalgamations of several underlying variables, complicating data interpretation. The TB dataset example demonstrates this, with demographic groups denoted by both sex and age in column headers, creating a need for careful data restructuring. By melting and then splitting these compound column names into distinct variables for age and sex, the dataset becomes tidier, facilitating the addition of new variables like population and rate for more meaningful analysis. This process underscores the importance of meticulous data processing for accurate and comprehensive data analysis.</p>
+</section>
+<section id="variables-are-stored-in-both-rows-and-columns" class="level2">
+<h2 class="anchored" data-anchor-id="variables-are-stored-in-both-rows-and-columns">3.3 Variables are stored in both rows and columns</h2>
+<p>Tidying complex datasets, where variables are stored in both rows and columns, requires careful restructuring. The example of daily weather data illustrates this by combining columnar variables (id, year, month) with variables spread across rows (tmin, tmax) and columns (days). Melting the dataset organizes it into a mostly tidy form, but additional steps like casting are needed to fully tidy it, separating variables stored in rows back into columns. This process turns the dataset into a tidy format where each variable is a column, and each observation, such as a day’s weather, is a row.</p>
+</section>
+<section id="multiple-types-in-one-table" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-types-in-one-table">3.4 Multiple types in one table</h2>
+<p>When dealing with datasets that have values collected at multiple levels or types of observational units, it’s crucial to store each type in its own table to avoid inconsistencies. This principle, akin to database normalization, ensures each fact is expressed uniquely. The Billboard dataset example illustrates the necessity of separating data into distinct tables for songs and their weekly rankings to prevent fact duplication and facilitate analysis. Although normalization aids in tidying data and eliminating inconsistencies, analysis often requires denormalization, merging tables back for comprehensive insights.</p>
+</section>
+<section id="one-type-in-multiple-tables" class="level2">
+<h2 class="anchored" data-anchor-id="one-type-in-multiple-tables">3.5. One type in multiple tables</h2>
+<p>When dealing with data spread across multiple tables or files, often segmented by variables like year or location, consolidating into a single table involves: reading files into a list, adding a column indicating the file source, and merging into one dataset. This process, facilitated by tools like the <code>plyr</code> package in R, simplifies handling datasets that are consistently formatted but distributed. Challenges arise when dataset structures vary over time, requiring individual or grouped tidying before combination. Examples include tidying yearly baby name datasets or fuel economy data with varying formats.</p>
+</section>
+<section id="tidy-tools" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-tools">4. Tidy Tools</h2>
+<p>Tidy datasets simplify analysis by facilitating the use of tidy tools, which accept and return tidy data, allowing for straightforward chaining of data processing tasks. These tools are designed to handle data consistently, eliminating the need for complex parameters to adapt to different data structures. Tools that work with or produce messy data complicate analysis and maintenance, as they require additional steps to tidy the data before or after use. The focus here is on showcasing examples of tidy and messy tools in R for data manipulation, visualization, and modeling, emphasizing the importance of tidy data in streamlining analytical workflows.</p>
+</section>
+<section id="manipulation" class="level2">
+<h2 class="anchored" data-anchor-id="manipulation">4.1 Manipulation</h2>
+<p>Data manipulation in tidy data involves fundamental operations like filtering, transforming, aggregating, and sorting, each made simpler by the consistent structure of tidy datasets. Tidy data ensures easy referencing of variables, as each resides in its own column. Tools in R like <code>subset()</code>, <code>transform()</code>, and <code>aggregate()</code> facilitate these operations, maintaining the tidy structure. The <code>plyr</code> package further supports these operations with functions like <code>summarise()</code> and <code>arrange()</code>, and enables easy data combination through tidy join operations, contrasting with the complexity of merging non-tidy datasets.</p>
+</section>
+<section id="visulaization" class="level2">
+<h2 class="anchored" data-anchor-id="visulaization">4.2 Visulaization</h2>
+<p>Tidy visualization tools, designed for tidy datasets, facilitate mapping variables to aesthetic graph properties like position, size, shape, and color, embodying the grammar of graphics principles. Tools such as R’s base <code>plot()</code>, <code>lattice</code>, and <code>ggplot2</code> are optimized for tidy inputs. However, some R functions cater to messy data, enabling visualization when variables span multiple columns. This approach underscores the versatility of R’s graphical capabilities, accommodating both tidy and complex datasets for insightful visual representations.</p>
+</section>
+<section id="modelling" class="level2">
+<h2 class="anchored" data-anchor-id="modelling">4.3 Modelling</h2>
+<p>Modelling benefits greatly from tidy datasets, where relationships between variables are clearly defined, facilitating statistical analysis in various programming languages. While tidy data simplifies the input for models, transformations are often required for computation, such as creating dummy variables for categorical data. Some modeling functions accommodate messy data for specific analyses, like repeated measures. However, model outputs, like coefficients, aren’t always tidy, posing challenges for combining results from multiple models. There’s an ongoing need for tools to tidy model outputs for more seamless analysis integration.</p>
+</section>
+<section id="case-study" class="level2">
+<h2 class="anchored" data-anchor-id="case-study">5. Case Study</h2>
+<p>The case study demonstrates the seamless integration of tidy data with tidy tools in R, facilitating data analysis across manipulation, visualization, and modeling without the need for format adjustments between functions. Using mortality data from Mexico, the study aims to identify causes of death with unusual hourly patterns. The process involves counting deaths per hour for each cause, cleaning data, and comparing against overall patterns. The approach simplifies identifying diseases with significant deviations from general trends, showcasing the efficiency of using tidy data and tools in R for complex data analysis tasks.</p>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<p>The paper emphasizes data cleaning’s critical yet underexplored role in statistics, introducing “data tidying” as a subset aimed at enhancing data manipulation, visualization, and modeling. The author recognizes the potential for further advancements in tidy data principles and tools and suggests exploring alternative tidiness concepts and data storage strategies. Moreover, it acknowledges the contribution of user-centered design and human-computer interaction to understanding the cognitive aspects of data analysis, proposing the development of frameworks to simplify other data cleaning tasks beyond tidying.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
