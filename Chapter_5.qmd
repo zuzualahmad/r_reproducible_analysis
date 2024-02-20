@@ -1,0 +1,95 @@
+---
+title: "Chapter 5 Exploring Data Frames"
+format: html
+editor: visual
+---
+
+## 
+
+## Adding Columns and rows in data frames
+
+if we want to add a new column, we can start by making a new vector:
+
+```{r}
+age <- c(2, 3, 5)
+cats
+```
+
+We can then add this as a column via:
+
+```{r}
+cbind(cats, age)
+```
+
+Note that if we tried to add a vector of ages with a different number of entries than the number of rows in the data frame, it would fail:
+
+```{r}
+age <- c(2, 3, 5, 12) cbind(cats, age)
+```
+
+Why didn’t this work? Of course, R wants to see one element in our new column for every row in the table:
+
+```{r}
+nrow(cats)
+```
+
+```{r}
+length(age)
+```
+
+So for it to work we need to have `nrow(cats)` = `length(age)`. Let’s overwrite the content of cats with our new data frame.
+
+```{r}
+age <- c(2, 3, 5)
+cats <- cbind(cats, age)
+```
+
+Now how about adding rows? We already know that the rows of a data frame are lists:
+
+```{r}
+newRow <- list("tortoiseshell", 3.3, TRUE, 9)
+cats <- rbind(cats, newRow)
+```
+
+Let’s confirm that our new row was added correctly.
+
+```{r}
+cats
+```
+
+## Removing Rows
+
+We now know how to add rows and columns to our data frame in R. Now let’s learn to remove rows.
+
+```{r}
+cats
+```
+
+We can ask for a data frame minus the last row:
+
+```{r}
+cats[-4, ]
+```
+
+## Removing Columns
+
+```{r}
+cats[,-4]
+```
+
+Notice the comma with nothing before it, indicating we want to keep all of the rows.
+
+Alternatively, we can drop the column by using the index name and the `%in%` operator. The `%in%` operator goes through each element of its left argument, in this case the names of `cats`, and asks, “Does this element occur in the second argument?”
+
+```{r}
+drop <- names(cats) %in% c("age")
+cats[,!drop]
+
+```
+
+# Appending to a data frame
+
+```{r}
+cats <- rbind(cats, cats)
+cats
+```

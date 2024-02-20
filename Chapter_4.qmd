@@ -1,0 +1,30 @@
+---
+title: "Chapter 4 Data Structures"
+format: html
+editor: visual
+---
+
+## Data Structures
+
+One of R’s most powerful features is its ability to deal with tabular data - such as you may already have in a spreadsheet or a CSV file. Let’s start by making a toy dataset in your `data/` directory, called `feline-data.csv`:
+
+```{r}
+cats <- data.frame(coat = c("calico", "black", "tabby"),
+                    weight = c(2.1, 5.0, 3.2),
+                    likes_string = c(1, 0, 1))
+```
+
+We can now save `cats` as a CSV file. It is good practice to call the argument names explicitly so the function knows what default values you are changing. Here we are setting `row.names = FALSE`. Recall you can use `?write.csv` to pull up the help file to check out the argument names and their default values.
+
+```{r}
+write.csv(x = cats, file = "data/feline-data.csv", row.names = FALSE)
+```
+
+The contents of the new file, `feline-data.csv`:
+
+```{r}
+coat,weight,likes_string
+calico,2.1,1
+black,5.0,0
+tabby,3.2,1
+```
